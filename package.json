@@ -1,0 +1,12 @@
+{
+  "name": "mob-builder",
+  "version": "4.0.0",
+  "description": "Builder compiles the websites whenever it's needed.",
+  "main": "src/main.js",
+  "repository": {
+    "url": "git@bitbucket.org:mobyourlife/builder",
+    "type": "git"
+  },
+  "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
+  "license": "Apache-2.0"
+}
