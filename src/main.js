@@ -1,18 +1,8 @@
 import { connectToFacebookDatabase } from './database'
-import { getPhotos } from './objects'
+import { getPage, getPhotos } from './objects'
 import { renderPage, saveFile } from './transform'
 
 const THEME = 'default'
-const COMMON_INFO = {
-  page: {
-    title: 'Início',
-    description: 'Site de teste',
-    author: 'Fiipe Oliveira'
-  },
-  site: {
-    title: 'Teste'
-  }
-}
 
 require('marko/node-require').install()
 
@@ -23,34 +13,56 @@ function buildWebsite(fb_account_id) {
     const [db] = data
     const path = `../teste/${fb_account_id}`
 
-    // Index page
-    const renderIndex = renderPage('default', 'index', COMMON_INFO)
-    .then(html => saveFile(path, 'index.html', html))
-    .then(console.log, console.error)
+    // Basic info about the page
+    getPage(db, fb_account_id).then(info => {
+      const site = {
+        title: info.name,
+        cover: info.cover
+      }
 
-    // Photos page
-    const renderPhotos = getPhotos(db, fb_account_id).then(photos => {
-        let payload = JSON.parse(JSON.stringify(COMMON_INFO))
-        payload.page.title = 'Fotos'
-        payload.photos = photos.map(i => {
-          return {
-            fb_album_id: i.fb_album_id,
-            fb_photo_id: i.fb_photo_id,
-            image_small: i.images[i.images.length - 1],
-            image_large: i.images[0],
-            time: i.updated_time || i.created_time
-          }
-        })
-        return renderPage(THEME, 'photos', payload)
+      // Index page
+      const renderIndex = renderPage('default', 'index', {
+        page: {
+          title: 'Início',
+          description: 'Página inicial do site',
+          author: 'Mob Your Life'
+        },
+        site
       })
-    .then(html => saveFile(path, 'fotos.html', html))
-    .then(console.log, console.error)
+      .then(html => saveFile(path, 'index.html', html))
+      .then(console.log, console.error)
 
-    // Wait to finish everything
-    Promise.all([
-      renderIndex,
-      renderPhotos
-    ]).then(() => db.close())
+      // Photos page
+      const renderPhotos = getPhotos(db, fb_account_id).then(photos => {
+          return renderPage(THEME, 'photos', {
+            page: {
+              title: 'Fotos',
+              description: 'Fotos do site',
+              author: 'Mob Your Life'
+            },
+            site,
+            photos: photos.map(i => {
+              return {
+                fb_album_id: i.fb_album_id,
+                fb_photo_id: i.fb_photo_id,
+                image_small: i.images[i.images.length - 1],
+                image_large: i.images[0],
+                time: i.updated_time || i.created_time
+              }
+            })
+          })
+        })
+      .then(html => saveFile(path, 'fotos.html', html))
+      .then(console.log, console.error)
+
+      // Wait to finish everything
+      Promise.all([
+        renderIndex,
+        renderPhotos
+      ]).then(() => db.close())
+    }, err => {
+      db.close()
+    })
   })
 }
 

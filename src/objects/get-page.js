@@ -1,17 +1,17 @@
-export function getPhotos(db, fb_account_id) {
+export function getPage(db, fb_account_id) {
   return new Promise((resolve, reject) => {
     try {
-      const photos = db.collection('photos')
-      photos.find({ fb_account_id })
+      const pages = db.collection('pages')
+      pages.find({ fb_account_id })
       .sort({ _id: -1 })
       .toArray((err, docs) => {
         if (err) {
-          reject('Unable to query photos!' + err)
+          reject('Unable to query page!' + err)
         } else {
           if (docs.length > 0) {
-            resolve(docs)
+            resolve(docs[0])
           } else {
-            reject('No photos for the requested account!')
+            reject('Page not found for the requested account!')
           }
         }
       })
