@@ -12,7 +12,7 @@ export function saveFile(folderName, fileName, contents) {
       if (err) {
         reject(err)
       } else {
-        resolve('Built website successfully!')
+        resolve(`Built ${fileName} page successfully!`)
       }
     })
   })

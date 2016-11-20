@@ -1,0 +1,10 @@
+<h1>Fotos</h1>
+
+<p>Total de fotos: ${data.photos.length}</p>
+
+<div class="row">
+  <div for(p in data.photos) class="col-md-3 col-sm-6 col-xs-12 text-center">
+    ${p.source}
+    <img src="${p.image_small.source}" alt="Foto" class="img-responsive img-thumbnail">
+  </div>
+</div>
