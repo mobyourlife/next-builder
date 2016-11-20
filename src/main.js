@@ -1,3 +1,5 @@
+import fs from 'fs'
+
 require('marko/node-require').install()
 
 renderPage('default', 'index', {
@@ -9,7 +11,9 @@ renderPage('default', 'index', {
   site: {
     title: 'Teste'
   }
-}).then(console.log, console.error)
+})
+.then(html => saveFile('../teste', 'index.html', html))
+.then(console.log, console.error)
 
 function renderPage(templateName, partialName, data) {
   return new Promise((resolve, reject) => {
@@ -29,6 +33,24 @@ function renderPage(templateName, partialName, data) {
             resolve(html)
           }
         })
+      }
+    })
+  })
+}
+
+function saveFile(folderName, fileName, contents) {
+  const path = `${folderName}/${fileName}`
+  
+  return new Promise((resolve, reject) => {
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName)
+    }
+
+    fs.writeFile(path, contents, err => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve('Built website successfully!')
       }
     })
   })
