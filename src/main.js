@@ -56,10 +56,22 @@ function buildWebsite(fb_account_id) {
       .then(html => saveFile(path, 'fotos.html', html))
       .then(console.log, console.error)
 
+      // Contact page
+      const renderContact = renderPage(THEME, 'contact', {
+        page: {
+          location: info.location,
+          phone: info.phone
+        },
+        site
+      })
+      .then(html => saveFile(path, 'contato.html', html))
+      .then(console.log, console.error)
+
       // Wait to finish everything
       Promise.all([
         renderIndex,
-        renderPhotos
+        renderPhotos,
+        renderContact
       ]).then(() => db.close())
     }, err => {
       db.close()

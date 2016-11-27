@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Contato</h1>
+
+  <div class="col-sm-7">
+    <form>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" class="form-control" placeholder="Digite seu nome">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" placeholder="Digite seu email">
+      </div>
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea class="form-control" style="width: 100%" rows="5"></textarea>
+      </div>
+      <div class="form-group text-right">
+        <button type="button" class="btn btn-primary btn-lg">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-5">
+    ${data.page.location.street}<br/>
+    ${data.page.location.city} - ${data.page.location.state}<br/>
+    F: ${data.page.phone}
+  </div>
+</div>
