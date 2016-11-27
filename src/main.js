@@ -17,7 +17,8 @@ function buildWebsite(fb_account_id) {
     getPage(db, fb_account_id).then(info => {
       const site = {
         title: info.name,
-        cover: info.cover
+        cover: info.cover,
+        theme: 'united'
       }
 
       // Index page
