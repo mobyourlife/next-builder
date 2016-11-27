@@ -21,8 +21,15 @@
     </form>
   </div>
   <div class="col-sm-5">
+    <h3>Telefone</h3>
+    ${data.page.phone}
+
+    <h3>Endereço</h3>
     ${data.page.location.street}<br/>
     ${data.page.location.city} - ${data.page.location.state}<br/>
-    F: ${data.page.phone}
+
+    <iframe width="100%" height="300" frameborder="0" style="border:0" allowfullscreen
+      src="https://www.google.com/maps/embed/v1/place?key=${data.api.gmaps_key}&q=${data.page.maps_address}">
+    </iframe>
   </div>
 </div>

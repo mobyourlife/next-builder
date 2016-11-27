@@ -59,10 +59,14 @@ function buildWebsite(fb_account_id) {
       // Contact page
       const renderContact = renderPage(THEME, 'contact', {
         page: {
+          phone: info.phone,
           location: info.location,
-          phone: info.phone
+          maps_address: makeMapsAddress(info.location)
         },
-        site
+        site,
+        api: {
+          gmaps_key: 'AIzaSyDAR_lqzrM4bOUxd1hOmxOzFs_xcewoQbA'
+        }
       })
       .then(html => saveFile(path, 'contato.html', html))
       .then(console.log, console.error)
@@ -83,4 +87,21 @@ if (process.argv.length === 3) {
   buildWebsite(process.argv[2])
 } else {
   console.log('Sintaxe correta: babel-node src/main.js 123456789')
+}
+
+function makeMapsAddress(location) {
+  const fields = [
+    location.street,
+    location.city,
+    location.state,
+    location.country,
+    location.latitude,
+    location.longitude
+  ]
+
+  const useful = fields.filter(i => !!i)
+  const q = useful.join(', ')
+  const uri = encodeURI(q)
+
+  return uri
 }
