@@ -6,5 +6,21 @@
 
 <div class="container">
   <h2>Início</h2>
-  <p>Olá visitante!</p>
+  
+  <div for(f in data.feed) class="row">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <img class="img-responsive" src="${f.full_picture}" alt="${f.story || f.from.name}">
+          </div>
+          <div class="col-sm-8">
+            <p>${f.story || f.from.name}</p>
+            <p>${f.updated_time}</p>
+            <p>${f.message}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

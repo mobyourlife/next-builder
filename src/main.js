@@ -1,5 +1,5 @@
 import { connectToFacebookDatabase } from './database'
-import { getPage, getPhotos } from './objects'
+import { getFeed, getPage, getPhotos } from './objects'
 import { renderPage, saveFile } from './transform'
 
 const THEME = 'default'
@@ -22,13 +22,16 @@ function buildWebsite(fb_account_id) {
       }
 
       // Index page
-      const renderIndex = renderPage('default', 'index', {
-        page: {
-          title: 'Início',
-          description: 'Página inicial do site',
-          author: 'Mob Your Life'
-        },
-        site
+      const renderIndex = getFeed(db, fb_account_id).then(feed => {
+        return renderPage('default', 'index', {
+          page: {
+            title: 'Início',
+            description: 'Página inicial do site',
+            author: 'Mob Your Life'
+          },
+          site,
+          feed
+        })
       })
       .then(html => saveFile(path, 'index.html', html))
       .then(console.log, console.error)
