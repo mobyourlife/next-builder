@@ -30,7 +30,10 @@ function buildWebsite(fb_account_id) {
             author: 'Mob Your Life'
           },
           site,
-          feed
+          feed: feed.map(i => {
+            i.updated_time = formatDate(i.updated_time)
+            return i
+          })
         })
       })
       .then(html => saveFile(path, 'index.html', html))
@@ -107,4 +110,24 @@ function makeMapsAddress(location) {
   const uri = encodeURI(q)
 
   return uri
+}
+
+function formatDate(date) {
+  function leftPad (n) {
+    let s = n.toString()
+    if (s.length < 2) {
+      s = '0' + s
+    }
+    return s
+  }
+
+  if (typeof date === 'string') {
+    date = new Date(date)
+  }
+
+  const dd = leftPad(date.getDate())
+  const mm = leftPad(date.getMonth() + 1)
+  const yyyy = date.getFullYear()
+
+  return `${dd}/${mm}/${yyyy}`
 }
