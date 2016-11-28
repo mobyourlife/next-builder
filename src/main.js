@@ -11,7 +11,7 @@ function buildWebsite(fb_account_id) {
     connectToFacebookDatabase()
   ]).then(data => {
     const [db] = data
-    const path = `../teste/${fb_account_id}`
+    const path = `../customers/${fb_account_id}`
 
     // Basic info about the page
     getPage(db, fb_account_id).then(info => {
