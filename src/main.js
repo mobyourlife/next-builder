@@ -32,6 +32,7 @@ function buildWebsite(fb_account_id) {
           site,
           feed: feed.map(i => {
             i.updated_time = formatDate(i.updated_time)
+            i.message = breakLines(i.message)
             return i
           })
         })
@@ -130,4 +131,12 @@ function formatDate(date) {
   const yyyy = date.getFullYear()
 
   return `${dd}/${mm}/${yyyy}`
+}
+
+function breakLines(s) {
+  if (s) {
+    return s.replace('\n', '<br/>')
+  } else {
+    return undefined
+  }
 }

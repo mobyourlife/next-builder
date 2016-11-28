@@ -9,13 +9,13 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-sm-4">
+          <div if(f.full_picture) class="col-sm-4">
             <img class="img-responsive" src="${f.full_picture}" alt="${f.story || f.from.name}">
           </div>
-          <div class="col-sm-8">
+          <div class="${f.full_picture ? 'col-sm-8' : 'col-sm-12'}">
             <p>${f.story || f.from.name}</p>
             <p><span class="label label-info">${f.updated_time}</span></p>
-            <p>${f.message}</p>
+            <p>$!{f.message}</p>
           </div>
         </div>
       </div>
