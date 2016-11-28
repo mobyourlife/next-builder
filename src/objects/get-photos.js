@@ -4,6 +4,7 @@ export function getPhotos(db, fb_account_id) {
       const photos = db.collection('photos')
       photos.find({ fb_account_id })
       .sort({ _id: -1 })
+      .limit(64)
       .toArray((err, docs) => {
         if (err) {
           reject('Unable to query photos!' + err)
