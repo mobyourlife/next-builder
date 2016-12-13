@@ -4,7 +4,7 @@
   "description": "Builder compiles the websites whenever it's needed.",
   "main": "src/main.js",
   "scripts": {
-    "start": "babel-node src/main.js"
+    "start": "node bootstrap.js"
   },
   "repository": {
     "url": "git@bitbucket.org:mobyourlife/builder",
@@ -13,6 +13,7 @@
   "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
   "license": "Apache-2.0",
   "dependencies": {
+    "babel-core": "^6.20.0",
     "marko": "^3.12.0",
     "mongodb": "^2.2.11"
   },

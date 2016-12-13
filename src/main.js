@@ -7,6 +7,8 @@ const THEME = 'default'
 require('marko/node-require').install()
 
 function buildWebsite(fb_account_id) {
+  console.log('Building site for account ID', fb_account_id)
+
   Promise.all([
     connectToFacebookDatabase()
   ]).then(data => {
