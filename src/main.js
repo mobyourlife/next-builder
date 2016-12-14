@@ -1,6 +1,6 @@
 import { connectToFacebookDatabase } from './database'
 import { connectToMessageQueue, consumeQueue } from './mq'
-import { getFeed, getPage, getPhotos } from './objects'
+import { getFeed, getPage, getPhotos, setBuildTime } from './objects'
 import { renderPage, saveFile } from './transform'
 
 const THEME = 'default'
@@ -17,11 +17,12 @@ function main() {
     connectToFacebookDatabase(),
     connectToMessageQueue()
   ]).then(data => {
+    console.log('Connected!')
     let [db, ch] = data
 
     consumeQueue(ch, BUILD_SITES_QUEUE).subscribe(res => {
-      const { fb_account_id, ack } = res
-      buildWebsite(db, fb_account_id)
+      const { data, ack } = res
+      buildWebsite(db, data.fb_account_id).then(ack)
     })
   })
 }
@@ -102,9 +103,13 @@ function buildWebsite(db, fb_account_id) {
       renderPhotos,
       renderContact
     ])
+    .then(() => setBuildTime(db, fb_account_id))
     .then(() => db.close())
 
-  }, err => db.close())
+  }, err => {
+    console.log('Error getting page!' + err)
+    return db.close()
+  })
 }
 
 function header() {

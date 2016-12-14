@@ -4,7 +4,8 @@
   "description": "Builder compiles the websites whenever it's needed.",
   "main": "src/main.js",
   "scripts": {
-    "start": "node bootstrap.js"
+    "start": "node bootstrap.js",
+    "watch": "babel-watch src/main.js"
   },
   "repository": {
     "url": "git@bitbucket.org:mobyourlife/builder",
@@ -15,6 +16,7 @@
   "dependencies": {
     "amqplib": "^0.5.1",
     "babel-core": "^6.20.0",
+    "babel-watch": "^2.0.4",
     "marko": "^3.12.0",
     "mongodb": "^2.2.11",
     "rxjs": "^5.0.1"
