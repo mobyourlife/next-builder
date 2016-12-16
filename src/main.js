@@ -104,7 +104,6 @@ function buildWebsite(db, fb_account_id) {
       renderContact
     ])
     .then(() => setBuildTime(db, fb_account_id))
-    .then(() => db.close())
 
   }, err => {
     console.log('Error getting page!' + err)
