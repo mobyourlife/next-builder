@@ -16,4 +16,4 @@ docker run \
   -d \
   mobyourlife-builder
 
-docker logs mobyourlife-builder -f
+docker logs -f mobyourlife-builder
