@@ -3,6 +3,7 @@ import { connectToMessageQueue, consumeQueue } from './mq'
 import { getFeed, getPage, getPhotos, setBuildTime } from './objects'
 import { renderPage, saveFile } from './transform'
 
+const STORAGE_PATH = process.env.STORAGE_PATH || '../customers'
 const THEME = 'default'
 
 require('marko/node-require').install()
@@ -30,7 +31,7 @@ function main() {
 function buildWebsite(db, fb_account_id) {
   console.log('Building site for account ID', fb_account_id)
 
-  const path = `../customers/${fb_account_id}`
+  const path = `${STORAGE_PATH}/${fb_account_id}`
 
   // Basic info about the page
   return getPage(db, fb_account_id).then(info => {
