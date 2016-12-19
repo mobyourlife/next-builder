@@ -12,7 +12,7 @@ docker run \
   --link mob-mq-rabbit:mq \
   -v /home/fmob/repos/customers:/var/customers \
   -e MOB_MONGO_FACEBOOK_DATABASE='mongodb://db:27017/mobyourlife_facebook' \
-  -e MOB_RABBITMQ_URL='amqp://mq' \
+  -e MOB_RABBITMQ_URL="amqp://$MOB_RABBITMQ_USERNAME:$MOB_RABBITMQ_PASSWORD@mq" \
   -e MOB_STORAGE_PATH='/var/customers' \
   -d \
   mobyourlife-builder
