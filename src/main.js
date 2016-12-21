@@ -135,6 +135,10 @@ function header() {
 }
 
 function makeMapsAddress(location) {
+  if (!location) {
+    return null
+  }
+
   const fields = [
     location.street,
     location.city,
