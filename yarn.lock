@@ -1159,6 +1159,13 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^2.0.0"
 
+lynx:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/lynx/-/lynx-0.2.0.tgz#79e6674530da4183e87953bd686171e070da50b9"
+  dependencies:
+    mersenne "~0.0.3"
+    statsd-parser "~0.0.4"
+
 marko:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/marko/-/marko-3.12.0.tgz#c9277b0a890f8fb2b7aefee2b51013f53ca3d8fd"
@@ -1188,6 +1195,10 @@ marko:
     resolve-from "^1.0.0"
     strip-json-comments "^2.0.1"
     try-require "^1.2.1"
+
+mersenne@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/mersenne/-/mersenne-0.0.3.tgz#c39a3d45fee6091189ccd329107312ea8fe14d8a"
 
 micromatch@^2.1.5:
   version "2.3.11"
@@ -1674,6 +1685,10 @@ sshpk@^1.7.0:
     jodid25519 "^1.0.0"
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
+
+statsd-parser@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/statsd-parser/-/statsd-parser-0.0.4.tgz#cbd243953cc42effd548b5d22388ed689ec639bd"
 
 string_decoder@~0.10.x:
   version "0.10.31"

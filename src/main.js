@@ -8,6 +8,9 @@ const THEME = 'default'
 
 require('marko/node-require').install()
 
+const Lynx = require('lynx')
+const metrics = new Lynx(process.env.MOB_TELEGRAF_HOSTNAME, 8125)
+
 header()
 main()
 
@@ -23,7 +26,12 @@ function main() {
 
     consumeQueue(ch, BUILD_SITES_QUEUE).subscribe(res => {
       const { data, ack } = res
-      buildWebsite(db, data.fb_account_id).then(ack)
+      buildWebsite(db, data.fb_account_id).then(res => {
+        metrics.increment('builder.build_website.ok')
+        ack()
+      }, err => {
+        metrics.increment('builder.build_website.err')
+      })
     })
   })
 }
@@ -99,12 +107,18 @@ function buildWebsite(db, fb_account_id) {
     .then(console.log, console.error)
 
     // Wait to finish everything
+    const time = process.hrtime()
     return Promise.all([
       renderIndex,
       renderPhotos,
       renderContact
     ])
-    .then(() => setBuildTime(db, fb_account_id))
+    .then(() => {
+      const arr = process.hrtime(time)
+      const diff = arr[0] + (arr[1] / Math.pow(10, 9))
+      metrics.timing('builder.build_website.time', diff)
+      setBuildTime(db, fb_account_id)
+    })
 
   }, err => {
     console.log('Error getting page!' + err)
