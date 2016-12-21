@@ -115,8 +115,8 @@ function buildWebsite(db, fb_account_id) {
       renderContact
     ])
     .then(() => {
-      const arr = process.hrtime(time)
-      const diff = arr[0] + (arr[1] / Math.pow(10, 9))
+      const elapsed = process.hrtime(time)
+      const diff = elapsed[0] + (elapsed[1] / Math.pow(10, 9))
       metrics.timing('builder.build_website.time', diff)
       setBuildTime(db, fb_account_id)
     })
