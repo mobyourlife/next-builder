@@ -31,6 +31,7 @@ function main() {
         ack()
       }, err => {
         metrics.increment('builder.build_website.err')
+        console.log(`Failed to build site for account ID ${data.fb_account_id}!`)
       })
     })
   })
