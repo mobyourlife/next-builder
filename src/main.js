@@ -48,7 +48,7 @@ function buildWebsite(db, fb_account_id) {
       title: info.name,
       hero_text_color: info.custom && info.custom.hero_text_color ? info.custom.hero_text_color : '#000',
       hero_bg_color: info.custom && info.custom.hero_bg_color ? info.custom.hero_bg_color : null,
-      hero_image: info.custom && info.custom.hero_image ? info.custom.hero_image === true ? info.cover.source : info.custom.hero_image : null,
+      hero_image: info.custom && info.custom.hero_image ? info.custom.hero_image === true ? info.cover ? info.cover.source : null : info.custom.hero_image : null,
       theme: info.custom && info.custom.theme_name ? info.custom.theme_name : 'united',
       analytics_id: info.admin && info.admin.analytics_id ? info.admin.analytics_id : null,
     }
