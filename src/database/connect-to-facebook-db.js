@@ -1,6 +1,6 @@
 const mongo = require('mongodb').MongoClient
 
-const url = process.env.MOB_MONGO_FACEBOOK_DATABASE || 'mongodb://localhost:27017/mobyourlife_facebook'
+const url = process.env.MOB_MONGO_FACEBOOK_DATABASE || 'mongodb://localhost:27017/mobyourlife'
 
 export function connectToFacebookDatabase() {
   return new Promise((resolve, reject) => {
