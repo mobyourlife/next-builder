@@ -4,7 +4,6 @@ import { getFeed, getPage, getPhotos, setBuildTime } from './objects'
 import { renderPage, saveFile } from './transform'
 
 const MOB_STORAGE_PATH = process.env.MOB_STORAGE_PATH || '../customers'
-const THEME = 'default'
 
 require('marko/node-require').install()
 
@@ -80,6 +79,12 @@ function buildWebsite(db, fb_account_id) {
 
     // Index page
     const renderIndex = getFeed(db, fb_account_id).then(feed => {
+      feed = feed.map(i => {
+        i.updated_time = formatDate(i.updated_time)
+        i.message = breakLines(i.message)
+        return i
+      })
+
       return renderPage(site.theme_name, 'index', {
         page: {
           title: 'Início',
@@ -87,11 +92,8 @@ function buildWebsite(db, fb_account_id) {
           author: 'Mob Your Life'
         },
         site,
-        feed: feed.map(i => {
-          i.updated_time = formatDate(i.updated_time)
-          i.message = breakLines(i.message)
-          return i
-        })
+        feed: feed,
+        latest: feed.slice(0, 4)
       })
     })
     .then(html => saveFile(path, 'index.html', html))
@@ -99,7 +101,7 @@ function buildWebsite(db, fb_account_id) {
 
     // Photos page
     const renderPhotos = getPhotos(db, fb_account_id).then(photos => {
-        return renderPage(THEME, 'photos', {
+        return renderPage(site.theme_name, 'photos', {
           page: {
             title: 'Fotos',
             description: 'Fotos do site',
@@ -121,7 +123,7 @@ function buildWebsite(db, fb_account_id) {
     .then(console.log, console.error)
 
     // Contact page
-    const renderContact = renderPage(THEME, 'contact', {
+    const renderContact = renderPage(site.theme_name, 'contact', {
       page: {
         phone: info.phone,
         location: info.location,

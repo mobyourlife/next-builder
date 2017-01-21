@@ -4,7 +4,7 @@
   "description": "Builder compiles the websites whenever it's needed.",
   "main": "src/main.js",
   "scripts": {
-    "start": "node bootstrap.js",
+    "start": "node builder.js",
     "watch": "babel-watch src/main.js"
   },
   "repository": {

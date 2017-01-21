@@ -13,14 +13,20 @@
     <title>${data.page.title} - ${data.site.title}</title>
 
     <!-- Bootstrap core CSS -->
-    <link unless(data.site.theme_variant) rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link if(data.site.theme_variant) rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/${data.site.theme_variant}/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <style type="text/css">
       body {
         padding-top: 50px;
         overflow-y: scroll;
+      }
+      .navbar-dina {
+        background-color: #b3dedc;
+        border-color: #8ab1ad;
+      }
+      .navbar-dina .navbar-brand, .navbar-dina .navbar-nav > li > a {
+        color: #496a83;
       }
       .starter-template {
         padding: 40px 15px;
@@ -55,7 +61,7 @@
     });
   </script>
 
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-dina navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
