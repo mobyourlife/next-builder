@@ -37,6 +37,24 @@ function main() {
   })
 }
 
+function makeNginxConfig(fb_account_id, domain) {
+  const config = `
+  server {
+      listen 80;
+      server_name ${domain};
+      root ${MOB_STORAGE_PATH}/${fb_account_id};
+
+      error_page 500 502 503 504  /50x.html;
+      location = /50x.html {
+          root /usr/share/nginx/html;
+      }
+  }
+  `
+  return new Promise((resolve, reject) => {
+    resolve(config)
+  })
+}
+
 function buildWebsite(db, fb_account_id) {
   console.log('Building site for account ID', fb_account_id)
 
@@ -52,6 +70,12 @@ function buildWebsite(db, fb_account_id) {
       theme: info.custom && info.custom.theme_name ? info.custom.theme_name : 'united',
       analytics_id: info.admin && info.admin.analytics_id ? info.admin.analytics_id : null,
     }
+
+    // nginx config
+    const domain = (info.admin && info.admin.domain) || `${fb_account_id}.meumob.site`
+    const renderConfig = makeNginxConfig(fb_account_id, domain)
+    .then(cfg => saveFile(path, 'nginx.config', cfg))
+    .then(console.log, console.error)
 
     // Index page
     const renderIndex = getFeed(db, fb_account_id).then(feed => {
@@ -113,6 +137,7 @@ function buildWebsite(db, fb_account_id) {
     // Wait to finish everything
     const time = process.hrtime()
     return Promise.all([
+      renderConfig,
       renderIndex,
       renderPhotos,
       renderContact
