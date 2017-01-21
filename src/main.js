@@ -67,7 +67,8 @@ function buildWebsite(db, fb_account_id) {
       hero_text_color: info.custom && info.custom.hero_text_color ? info.custom.hero_text_color : '#000',
       hero_bg_color: info.custom && info.custom.hero_bg_color ? info.custom.hero_bg_color : null,
       hero_image: info.custom && info.custom.hero_image ? info.custom.hero_image === true ? info.cover ? info.cover.source : null : info.custom.hero_image : null,
-      theme: info.custom && info.custom.theme_name ? info.custom.theme_name : 'united',
+      theme_name: info.custom && info.custom.theme_name ? info.custom.theme_name : 'default',
+      theme_variant: info.custom && info.custom.theme_variant ? info.custom.theme_variant : null,
       analytics_id: info.admin && info.admin.analytics_id ? info.admin.analytics_id : null,
     }
 
@@ -79,7 +80,7 @@ function buildWebsite(db, fb_account_id) {
 
     // Index page
     const renderIndex = getFeed(db, fb_account_id).then(feed => {
-      return renderPage('default', 'index', {
+      return renderPage(site.theme_name, 'index', {
         page: {
           title: 'Início',
           description: 'Página inicial do site',
