@@ -63,7 +63,7 @@ function buildWebsite(db, fb_account_id) {
   // Basic info about the page
   return getPage(db, fb_account_id).then(info => {
     const site = {
-      title: info.name,
+      title: (info.custom && info.custom.title) || info.name,
       hero_text_color: info.custom && info.custom.hero_text_color ? info.custom.hero_text_color : '#000',
       hero_bg_color: info.custom && info.custom.hero_bg_color ? info.custom.hero_bg_color : null,
       hero_image: info.custom && info.custom.hero_image ? info.custom.hero_image === true ? info.cover ? info.cover.source : null : info.custom.hero_image : null,
