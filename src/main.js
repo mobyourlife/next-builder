@@ -74,7 +74,7 @@ function buildWebsite(db, fb_account_id) {
     // nginx config
     const domain = (info.admin && info.admin.domain) || `${fb_account_id}.meumob.site`
     const renderConfig = makeNginxConfig(fb_account_id, domain)
-    .then(cfg => saveFile(path, 'nginx.config', cfg))
+    .then(cfg => saveFile(path, 'nginx.conf', cfg))
     .then(console.log, console.error)
 
     // Index page
