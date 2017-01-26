@@ -93,7 +93,7 @@ function buildWebsite(db, fb_account_id) {
         },
         site,
         feed: feed,
-        latest: feed.slice(0, 4)
+        latest: feed.filter(i => i.full_picture).slice(0, 3)
       })
     })
     .then(html => saveFile(path, 'index.html', html))

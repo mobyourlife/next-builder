@@ -1,31 +1,27 @@
-<div class="jumbotron cover" style="color: ${data.site.hero_text_color}; background-color: ${data.site.hero_bg_color}; background-image: url(${data.site.hero_image})">
-  <div class="container" style="height: 400px">
-  </div>
-</div>
-
-<div class="container">
-
-  <div class="row">
-    <div for(f in data.latest)>
-      <div if(f.full_picture) class="col-md-3 col-sm-6 col-xs-12 text-center" style="margin-bottom: 1.5em">
-        <img class="img-responsive" src="${f.full_picture}" alt="${f.story || f.from.name}">
-      </div>
+<!-- Carousel
+================================================== -->
+<div class="carousel">
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="${data.site.hero_image}" alt="${data.site.title}">
     </div>
   </div>
+</div><!-- /.carousel -->
 
-    <!--<div class="panel panel-default">
-      <div class="panel-body">
-        <div class="row">
-          <div if(f.full_picture) class="col-sm-4">
-            <img class="img-responsive" src="${f.full_picture}" alt="${f.story || f.from.name}">
-          </div>
-          <div class="${f.full_picture ? 'col-sm-8' : 'col-sm-12'}">
-            <p>${f.story || f.from.name}</p>
-            <p><span class="label label-info">${f.updated_time}</span></p>
-            <p>$!{f.message}</p>
-          </div>
-        </div>
-      </div>
-    </div>-->
 
-</div>
+<!-- Marketing messaging
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing">
+
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div for(f in data.latest) class="col-lg-4">
+      <img class="img-circle" src="${f.full_picture}" alt="${f.story || f.from.name}" width="140" height="140">
+      <h2>${f.story || f.from.name}</h2>
+      <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+      <p><a class="btn btn-default" href="#" role="button">Ler mais &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+</div><!-- /.container -->
