@@ -87,6 +87,7 @@ function buildWebsite(db, fb_account_id) {
 
       return renderPage(site.theme_name, 'index', {
         page: {
+          id: 'home',
           title: 'Início',
           description: 'Página inicial do site',
           author: 'Mob Your Life'
@@ -103,6 +104,7 @@ function buildWebsite(db, fb_account_id) {
     const renderPhotos = getPhotos(db, fb_account_id).then(photos => {
         return renderPage(site.theme_name, 'photos', {
           page: {
+            id: 'photos',
             title: 'Fotos',
             description: 'Fotos do site',
             author: 'Mob Your Life'
@@ -125,6 +127,8 @@ function buildWebsite(db, fb_account_id) {
     // Contact page
     const renderContact = renderPage(site.theme_name, 'contact', {
       page: {
+        id: 'contact',
+        title: 'Contato',
         phone: info.phone,
         location: info.location,
         maps_address: makeMapsAddress(info.location)
