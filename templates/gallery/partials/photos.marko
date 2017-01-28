@@ -1,12 +1,55 @@
-<div class="container">
-  <div class="page-header text-center">
-    <h1>Fotos</h1>
-  </div>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
-  <div class="row">
-    <div for(p in data.photos) class="col-md-3 col-sm-6 col-xs-12 text-center" style="margin-bottom: 1.5em">
-      ${p.source}
-      <img src="${p.image_small.source}" alt="Foto" class="img-responsive img-thumbnail" style="height: 152px; width: auto">
+<div style="margin-top: 50px">
+  <div class="grid">
+    <div for(p in data.photos) id="${p.id}" class="grid-item">
+      <!-- ${p.source} -->
+      <img src="${p.image_small.source}" alt="${p.source}" class="img-responsive" onerror="removeInvalid('${p.id}')">
     </div>
   </div>
 </div>
+
+<script>
+  function removeInvalid (id) {
+    var el = document.getElementById(id)
+    if (el) {
+      el.parentElement.removeChild(el);
+    }
+  }
+
+  function initSizes () {
+    var columns = 4
+    var width = (window.innerWidth / columns) - 5
+    var items = document.getElementsByClassName('grid-item')
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i]
+      var imgs = item.getElementsByTagName('img')
+
+      if (imgs && imgs.length > 0) {
+        for (var j = 0; j < imgs.length; j++) {
+          var img = imgs[j];
+          img.style = 'width: ' + width + 'px; height: auto';
+        }
+      }
+    }
+  }
+
+  function adjustSizes () {
+    var elem = document.querySelector('.grid');
+    var msnry = new Masonry(elem, {
+      // options
+      itemSelector: '.grid-item',
+      columnWidth: 200
+    });
+
+    // element argument can be a selector string
+    //   for an individual element
+    var msnry = new Masonry('.grid', {
+      // options
+    });
+  }
+
+  initSizes();
+  adjustSizes();
+</script>

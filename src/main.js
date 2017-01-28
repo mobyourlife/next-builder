@@ -112,6 +112,7 @@ function buildWebsite(db, fb_account_id) {
           site,
           photos: photos.map(i => {
             return {
+              id: i._id,
               fb_album_id: i.fb_album_id,
               fb_photo_id: i.fb_photo_id,
               image_small: i.images[i.images.length - 1],
